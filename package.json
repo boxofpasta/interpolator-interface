@@ -23,7 +23,7 @@
     "sass-loader": "^7.0.1",
     "style-loader": "^0.21.0"
   },
-  "homepage": "http://boxofpasta.github.io/interpolator-interface",
+  "homepage": "https://boxofpasta.github.io/interpolator-interface/",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode production",
