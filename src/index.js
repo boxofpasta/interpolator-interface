@@ -7,42 +7,44 @@ import {
   ReflexElement
 } from 'react-reflex'
 
-import './style.scss';
+import './style.css';
 import 'react-reflex/styles.css';
 
-/////////////////////////////////////////////////////////
-// Re-Flex basic vertical layout with resizable splitter
-//
-/////////////////////////////////////////////////////////
 class ReflexBasicSplitterDemo
   extends React.Component {
 
   render () {
-
     return (
-      <ReflexContainer orientation="vertical">
+      <ReflexContainer orientation="horizontal">
 
-        <ReflexElement className="left-pane">
-          <div className="pane-content">
-            <label>
-              Left Pane (resizable)
-            </label>
-          </div>
+        <ReflexElement>
+          <ReflexContainer orientation="vertical">
+            <ReflexElement>
+              <div>
+                <label>
+                  Asset browser and properties editor.
+                </label>
+              </div>
+            </ReflexElement>
+
+            <ReflexSplitter/>
+
+            <ReflexElement size="700">
+              <div>
+                <label>
+                  Video preview.
+                </label>
+              </div>
+            </ReflexElement>
+          </ReflexContainer>
         </ReflexElement>
 
         <ReflexSplitter/>
 
-        <ReflexElement className="right-pane"
-          minSize="200"
-          maxSize="800">
-          <div className="pane-content">
+        <ReflexElement size="300">
+          <div>
             <label>
-              Right Pane (resizable)
-              <br/>
-              <br/>
-              minSize = 200px
-              <br/>
-              maxSize = 800px
+              Timeline.
             </label>
           </div>
         </ReflexElement>
@@ -55,4 +57,4 @@ class ReflexBasicSplitterDemo
 ReactDOM.render(
     <ReflexBasicSplitterDemo/>
   ,
-  document.getElementById('demo-basic-splitter'))
+  document.getElementById('main-layout'))
