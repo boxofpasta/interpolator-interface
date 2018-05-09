@@ -1,3 +1,7 @@
+:root {
+  --menu-bar-height: 37px;
+}  
+
 html, body {
   height: 100%;
   width: 100%;
@@ -7,7 +11,21 @@ html, body {
   font-family: 'Roboto', sans-serif;
 }
 
-#main-layout {
+#main {
   background-color: white;
   height: 100%;
+  width: 100%;
+}
+
+#layout {
+  height: calc(100% - var(--menu-bar-height, 0px));
+  width: 100%;
+  padding-top: var(--menu-bar-height, 0px);
+}
+
+#menu-bar {
+  width: 100%;
+  height: var(--menu-bar-height, 0px);
+  z-index: 5;
+  position: absolute;
 }
