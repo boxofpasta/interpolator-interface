@@ -10,7 +10,7 @@ import {
 import MainTabView from './maintabview.js'
 
 import './style.css';
-import 'react-reflex/styles.css';
+import './reflexstyle.css';
 
 class SplitLayout extends React.Component {
   render () {
