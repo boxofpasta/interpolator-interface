@@ -32,10 +32,9 @@ export default class MainTabView extends React.Component {
     this.state = {
       slideIndex: 0,
     };
-    this.handleChange = this.handleChange.bind(this)
   }
 
-  handleChange(value) {
+  handleChange = (value) => {
     this.setState({
       slideIndex: value,
     });
