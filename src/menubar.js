@@ -31,7 +31,6 @@ const paperStyle = {
   width: '100%',
   backgroundColor: '#eeeeee',
 };
-  
 
 export default class MenuBar extends React.Component {
   constructor(props) {
