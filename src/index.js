@@ -7,12 +7,12 @@ import {
   ReflexElement
 } from 'react-reflex'
 
+import MainTabView from './maintabview.js'
+
 import './style.css';
 import 'react-reflex/styles.css';
 
-class ReflexBasicSplitterDemo
-  extends React.Component {
-
+class SplitLayout extends React.Component {
   render () {
     return (
       <ReflexContainer orientation="horizontal">
@@ -20,11 +20,7 @@ class ReflexBasicSplitterDemo
         <ReflexElement>
           <ReflexContainer orientation="vertical">
             <ReflexElement>
-              <div>
-                <label>
-                  Asset browser and properties editor.
-                </label>
-              </div>
+              <MainTabView/>
             </ReflexElement>
 
             <ReflexSplitter/>
@@ -54,7 +50,5 @@ class ReflexBasicSplitterDemo
   }
 }
 
-ReactDOM.render(
-    <ReflexBasicSplitterDemo/>
-  ,
+ReactDOM.render(<SplitLayout/>,
   document.getElementById('main-layout'))
