@@ -1,11 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// Theme imports.
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {deepOrange500} from 'material-ui/styles/colors';
-
 // Button imports.
 import FlatButton from 'material-ui/FlatButton';
 
@@ -18,12 +13,6 @@ import MenuItem from 'material-ui/MenuItem';
 import Paper from 'material-ui/Paper';
 
 import './style.css';
-
-const muiTheme = getMuiTheme({
-  palette: {
-    accent1Color: deepOrange500,
-  }
-});
 
 const paperStyle = {
   textAlign: 'left',
@@ -87,8 +76,8 @@ export default class MenuBar extends React.Component {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={muiTheme}>
-        <div id="menu-bar"> <Paper style={paperStyle} zDepth={2}>
+      <div id="menu-bar">
+        <Paper style={paperStyle} zDepth={2}>
           <FlatButton label="File" onClick={this.handleFileClick} />
           <Popover
             open={this.state.openFileMenu}
@@ -145,8 +134,8 @@ export default class MenuBar extends React.Component {
               <MenuItem primaryText="About" />
             </Menu>
           </Popover>
-         </Paper> </div>
-      </MuiThemeProvider>
+        </Paper>
+      </div>
     );
   }
 }

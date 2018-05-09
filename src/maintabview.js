@@ -1,11 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// Theme imports.
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {deepOrange500} from 'material-ui/styles/colors';
-
 // Tab imports.
 import {Tabs, Tab} from 'material-ui/Tabs';
 // From https://github.com/oliviertassinari/react-swipeable-views.
@@ -19,12 +14,6 @@ const styles = {
     fontWeight: 400,
   }
 };
-
-const muiTheme = getMuiTheme({
-  palette: {
-    accent1Color: deepOrange500,
-  }
-});
 
 export default class MainTabView extends React.Component {
   constructor(props) {
@@ -42,7 +31,6 @@ export default class MainTabView extends React.Component {
 
   render() {
     return (
-    <MuiThemeProvider muiTheme={muiTheme}>
       <div>
         <Tabs onChange={this.handleChange} value={this.state.slideIndex}>
           <Tab label="Asset browser" value={0} />
@@ -57,7 +45,6 @@ export default class MainTabView extends React.Component {
           </div>
         </SwipeableViews>
       </div>
-    </MuiThemeProvider>
     );
   }
 }
