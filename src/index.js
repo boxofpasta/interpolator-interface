@@ -7,52 +7,68 @@ import {
   ReflexElement
 } from 'react-reflex'
 
-import './style.scss';
-import 'react-reflex/styles.css';
+// Custom component imports.
+import MainTabView from './maintabview.js'
+import MenuBar from './menubar.js'
 
-/////////////////////////////////////////////////////////
-// Re-Flex basic vertical layout with resizable splitter
-//
-/////////////////////////////////////////////////////////
-class ReflexBasicSplitterDemo
-  extends React.Component {
+// Theme imports.
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {deepOrange500} from 'material-ui/styles/colors';
 
+// CSS imports.
+import './style.css';
+import './reflexstyle.css';
+
+// Global theme.
+const muiTheme = getMuiTheme({
+  palette: {
+    accent1Color: deepOrange500,
+  }
+});
+
+class SplitLayout extends React.Component {
   render () {
-
     return (
-      <ReflexContainer orientation="vertical">
+      <div id="main">
+        <MuiThemeProvider muiTheme={muiTheme}>
+          <MenuBar/>
+          <div id="layout">
+            <ReflexContainer orientation="horizontal">
+              <ReflexElement>
+                <ReflexContainer orientation="vertical">
+                  <ReflexElement>
+                    <MainTabView/>
+                  </ReflexElement>
 
-        <ReflexElement className="left-pane">
-          <div className="pane-content">
-            <label>
-              Left Pane (resizable)
-            </label>
+                  <ReflexSplitter/>
+
+                  <ReflexElement size="700">
+                    <div>
+                      <label>
+                        Video preview.
+                      </label>
+                    </div>
+                  </ReflexElement>
+                </ReflexContainer>
+              </ReflexElement>
+
+              <ReflexSplitter/>
+
+              <ReflexElement size="300">
+                <div>
+                  <label>
+                    Timeline.
+                  </label>
+                </div>
+              </ReflexElement>
+            </ReflexContainer>
           </div>
-        </ReflexElement>
-
-        <ReflexSplitter/>
-
-        <ReflexElement className="right-pane"
-          minSize="200"
-          maxSize="800">
-          <div className="pane-content">
-            <label>
-              Right Pane (resizable)
-              <br/>
-              <br/>
-              minSize = 200px
-              <br/>
-              maxSize = 800px
-            </label>
-          </div>
-        </ReflexElement>
-
-      </ReflexContainer>
+        </MuiThemeProvider>
+      </div>
     )
   }
 }
 
-ReactDOM.render(
-    <ReflexBasicSplitterDemo/>
-  ,
-  document.getElementById('demo-basic-splitter'))
+ReactDOM.render(<SplitLayout/>,
+  document.getElementById('main'))
