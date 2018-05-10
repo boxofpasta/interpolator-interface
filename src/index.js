@@ -1,15 +1,15 @@
-import ReactDOM from 'react-dom'
-import React from 'react'
+import ReactDOM from 'react-dom';
+import React from 'react';
 
 import {
   ReflexContainer,
   ReflexSplitter,
   ReflexElement
-} from 'react-reflex'
+} from 'react-reflex';
 
 // Custom component imports.
-import MainTabView from './maintabview.js'
-import MenuBar from './menubar.js'
+import MainTabView from './components/MainTabView';
+import MenuBar from './components/MenuBar';
 
 // Theme imports.
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -17,8 +17,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {deepOrange500} from 'material-ui/styles/colors';
 
 // CSS imports.
-import './style.css';
-import './reflexstyle.css';
+import './components/style.css';
+import './components/reflexstyle.css';
 
 // Global theme.
 const muiTheme = getMuiTheme({
