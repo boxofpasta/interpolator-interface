@@ -12,13 +12,19 @@ import MenuItem from 'material-ui/MenuItem';
 // Paper imports.
 import Paper from 'material-ui/Paper';
 
-import './style.css';
-
-const paperStyle = {
-  textAlign: 'left',
-  display: 'inline-block',
-  width: '100%',
-  backgroundColor: '#eeeeee',
+const styles = {
+  paper : {
+    textAlign: 'left',
+    display: 'inline-block',
+    width: '100%',
+    backgroundColor: '#eeeeee',
+  },
+  menuBar : {
+    width: '100%',
+    height: '37px',
+    zIndex: 5,
+    position: 'relative'
+  }
 };
 
 export default class MenuBar extends React.Component {
@@ -76,8 +82,8 @@ export default class MenuBar extends React.Component {
 
   render() {
     return (
-      <div id="menu-bar">
-        <Paper style={paperStyle} zDepth={2}>
+      <div id="menu-bar" style={styles.menuBar}>
+        <Paper style={styles.paper} zDepth={2}>
           <FlatButton label="File" onClick={this.handleFileClick} />
           <Popover
             open={this.state.openFileMenu}

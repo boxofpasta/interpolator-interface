@@ -17,7 +17,6 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {deepOrange500} from 'material-ui/styles/colors';
 
 // CSS imports.
-import './style.css';
 import './reflexstyle.css';
 
 // Global theme.
@@ -27,12 +26,20 @@ const muiTheme = getMuiTheme({
   }
 });
 
+const styles = {
+  layout : {
+    height: '100%',
+    width: '100%',
+    position: 'relative'
+  }
+};
+
 export default class App extends React.Component {
   render () {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <MenuBar/>
-        <div id="layout">
+        <div id="layout" style={styles.layout}>
           <ReflexContainer orientation="horizontal">
             <ReflexElement>
               <ReflexContainer orientation="vertical">
