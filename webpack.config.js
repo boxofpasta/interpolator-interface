@@ -2,32 +2,10 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
     module: {
-      rules: [{
-          test: /\.(s*)css$/,
-          oneOf: [
-            {
-              resourceQuery: /^\?raw$/,
-              use: [
-                'style-loader',
-                'css-loader',
-                'sass-loader'
-              ]
-            }, 
-            {
-                use: [
-                  'style-loader',
-                  {
-                    loader: 'css-loader',
-                    options: {
-                      importLoaders: 1,
-                      modules: true,
-                      localIdentName: '[name]__[local]___[hash:base64:5]'
-                    }
-                  }, 
-                  'sass-loader'
-                ]
-            }
-          ]
+      rules: [
+        {
+            test: /\.(s*)css$/,
+            use:['style-loader','css-loader','sass-loader']
         },
         {
           test: /\.js$/,
