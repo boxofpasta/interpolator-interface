@@ -57,6 +57,11 @@ export default class MenuBar extends React.Component {
     });
   }
 
+  handleChangeView = (view) => {
+    this.handleRequestClose();
+    this.props.cbChangeMainView(view);
+  }
+
   handleHelpClick = (event) => {
     event.preventDefault();
     this.setState({
@@ -119,6 +124,8 @@ export default class MenuBar extends React.Component {
               <MenuItem primaryText="Zoom in" />
               <MenuItem primaryText="Zoom out" />
               <MenuItem primaryText="Commandline" />
+              <MenuItem onClick={this.handleChangeView.bind(this, 'main')} primaryText="Main Window" />
+              <MenuItem onClick={this.handleChangeView.bind(this, 'hint')} primaryText="Hint Window" />
             </Menu>
           </Popover>
           <FlatButton label="Help" onClick={this.handleHelpClick} />

@@ -10,6 +10,7 @@ import {
 // Custom component imports.
 import MainTabView from './maintabview.js'
 import MenuBar from './menubar.js'
+import MainHintWindow from './mainhintwindow.js'
 
 // Theme imports.
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -28,41 +29,76 @@ const muiTheme = getMuiTheme({
 });
 
 class SplitLayout extends React.Component {
+  constructor(props) {
+    super(props);
+
+    // Set initial state.
+    this.state = {
+        currentView: 'main'
+    };
+
+    // Bind callbacks to this class.
+    this.cbChangeMainView = this.cbChangeMainView.bind(this);
+  }
+
+  cbChangeMainView(view) {
+    this.setState({currentView: view});
+  }
+
+  getMainComponent() {
+    let mainComponent;
+    var mainView = this.state.currentView;
+    switch (mainView) {
+      case 'hint':
+        mainComponent = <MainHintWindow/>;
+        break;
+      case 'main':
+        mainComponent = (
+          <ReflexContainer oritentation="horizontal">
+            <ReflexElement>
+              <ReflexContainer orientation="vertical">
+                <ReflexElement>
+                  <MainTabView/>
+                </ReflexElement>
+
+                <ReflexSplitter/>
+
+                <ReflexElement size="700">
+                  <div>
+                    <label>
+                      Video preview.
+                    </label>
+                  </div>
+                </ReflexElement>
+              </ReflexContainer>
+            </ReflexElement>
+
+            <ReflexSplitter/>
+
+            <ReflexElement size="300">
+              <div>
+                <label>
+                  Timeline.
+                </label>
+              </div>
+            </ReflexElement>
+          </ReflexContainer>
+        );
+        break;
+      default:
+        alert("Invalid view: " + this.state.currentView);
+        break;
+    }
+    return mainComponent;
+  }
+
   render () {
     return (
       <div id="main">
         <MuiThemeProvider muiTheme={muiTheme}>
-          <MenuBar/>
+          <MenuBar cbChangeMainView={this.cbChangeMainView}/>
           <div id="layout">
-            <ReflexContainer orientation="horizontal">
-              <ReflexElement>
-                <ReflexContainer orientation="vertical">
-                  <ReflexElement>
-                    <MainTabView/>
-                  </ReflexElement>
-
-                  <ReflexSplitter/>
-
-                  <ReflexElement size="700">
-                    <div>
-                      <label>
-                        Video preview.
-                      </label>
-                    </div>
-                  </ReflexElement>
-                </ReflexContainer>
-              </ReflexElement>
-
-              <ReflexSplitter/>
-
-              <ReflexElement size="300">
-                <div>
-                  <label>
-                    Timeline.
-                  </label>
-                </div>
-              </ReflexElement>
-            </ReflexContainer>
+            {this.getMainComponent()}
           </div>
         </MuiThemeProvider>
       </div>
