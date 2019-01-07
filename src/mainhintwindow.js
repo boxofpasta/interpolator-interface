@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Slider from 'material-ui/Slider';
+import Button from 'material-ui/FlatButton';
 
 import {
   ReflexContainer,
@@ -30,6 +31,20 @@ export default class MainHintWindow extends React.Component {
     this.setState({image_opacity: value});
   }
 
+  handleZoomOut = () => {
+    this.img_0.style.height /= 1.1;
+    this.img_0.style.width /= 1.1;
+    this.img_1.style.height /= 1.1;
+    this.img_1.style.width /= 1.1;
+  }
+
+  handleZoomIn = () => {
+    this.img_0.style.height *= 1.1;
+    this.img_0.style.width *= 1.1;
+    this.img_1.style.height *= 1.1;
+    this.img_1.style.width *= 1.1;
+  }
+
   render() {
     const img_0_url = '../0000001_0.png';
     const img_1_url = '../0000001_1.png';
@@ -50,8 +65,14 @@ export default class MainHintWindow extends React.Component {
           <ReflexContainer orientation="vertical">
             <ReflexElement>
               <div>
-                <img src={img_0_url} style={img_0_style} />
-                <img src={img_1_url} style={img_1_style} />
+                <img
+                    ref={(ele) => this.img_0 = ele}
+                    src={img_0_url}
+                    style={img_0_style} />
+                <img
+                    ref={(ele) => this.img_1 = ele}
+                    src={img_1_url}
+                    style={img_1_style} />
               </div>
             </ReflexElement>
 
@@ -64,6 +85,14 @@ export default class MainHintWindow extends React.Component {
                     value={this.state.opacity}
                     onChange={this.handleOpacitySlider}
                 />
+                <ReflexContainer orientation="vertical">
+                  <Button onClick={this.handleZoomIn}>
+                    Zoom In
+                  </Button>
+                  <Button onClick={this.handleZoomOut}>
+                    Zoom Out
+                  </Button>
+                </ReflexContainer>
               </ReflexContainer>
             </ReflexElement>
           </ReflexContainer>
