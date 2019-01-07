@@ -1,11 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import Slider from 'material-ui/Slider';
+
 import {
   ReflexContainer,
   ReflexSplitter,
   ReflexElement
 } from 'react-reflex'
+
+const styles = {
+  slider: {
+    padding: '0px 10px'
+  }
+};
 
 export default class MainHintWindow extends React.Component {
   constructor(props) {
@@ -16,6 +24,10 @@ export default class MainHintWindow extends React.Component {
       flowMode: 'drag',
       image_opacity: '0.4'
     };
+  }
+
+  handleOpacitySlider = (event, value) => {
+    this.setState({image_opacity: value});
   }
 
   render() {
@@ -46,7 +58,13 @@ export default class MainHintWindow extends React.Component {
             <ReflexSplitter/>
 
             <ReflexElement>
-              <div><label>Toolbar</label></div>
+              <ReflexContainer orientation="horizontal">
+                <Slider
+                    style={styles.slider}
+                    value={this.state.opacity}
+                    onChange={this.handleOpacitySlider}
+                />
+              </ReflexContainer>
             </ReflexElement>
           </ReflexContainer>
         </ReflexElement>
