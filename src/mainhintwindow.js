@@ -34,14 +34,30 @@ export default class MainHintWindow extends React.Component {
     this.setState({image_opacity: value});
   }
 
+  canvasZoomIn = () => {
+    this.refs.canvas.publicZoomIn();
+  }
+
+  canvasZoomOut = () => {
+    this.refs.canvas.publicZoomOut();
+  }
+
+  canvasChangeOpacity = (value) => {
+    this.refs.canvas.publicChangeOpacity(value);
+  }
+
   render() {
     const img_0_url = '../0000001_0.png';
     const img_1_url = '../0000001_1.png';
     return (
       <ReflexContainer orientation="horizontal">
-        <HintCanvas />
+        <HintCanvas ref="canvas" />
         <ReflexSplitter />
-        <HintToolbox />
+        <HintToolbox
+            cbZoomIn={this.canvasZoomIn}
+            cbZoomOut={this.canvasZoomOut}
+            cbChangeOpacity={this.canvasChangeOpacity}
+        />
       </ReflexContainer>
     );
   }
