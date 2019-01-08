@@ -32,17 +32,17 @@ export default class MainHintWindow extends React.Component {
   }
 
   handleZoomOut = () => {
-    this.img_0.style.height /= 1.1;
-    this.img_0.style.width /= 1.1;
-    this.img_1.style.height /= 1.1;
-    this.img_1.style.width /= 1.1;
+    this.refs.img_0.height /= 1.1;
+    this.refs.img_0.width /= 1.1;
+    this.refs.img_1.height /= 1.1;
+    this.refs.img_1.width /= 1.1;
   }
 
   handleZoomIn = () => {
-    this.img_0.style.height *= 1.1;
-    this.img_0.style.width *= 1.1;
-    this.img_1.style.height *= 1.1;
-    this.img_1.style.width *= 1.1;
+    this.refs.img_0.height *= 1.1;
+    this.refs.img_0.width *= 1.1;
+    this.refs.img_1.height *= 1.1;
+    this.refs.img_1.width *= 1.1;
   }
 
   render() {
@@ -66,11 +66,11 @@ export default class MainHintWindow extends React.Component {
             <ReflexElement>
               <div>
                 <img
-                    ref={(ele) => this.img_0 = ele}
+                    ref="img_0"
                     src={img_0_url}
                     style={img_0_style} />
                 <img
-                    ref={(ele) => this.img_1 = ele}
+                    ref="img_1"
                     src={img_1_url}
                     style={img_1_style} />
               </div>
