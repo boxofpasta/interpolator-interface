@@ -82,7 +82,7 @@ export default class MainHintWindow extends React.Component {
               <ReflexContainer orientation="horizontal">
                 <Slider
                     style={styles.slider}
-                    value={this.state.opacity}
+                    value={this.state.image_opacity}
                     onChange={this.handleOpacitySlider}
                 />
                 <ReflexContainer orientation="vertical">
