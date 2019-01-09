@@ -16,7 +16,7 @@ import {
 const styles = {
   slider: {
     padding: '0px 10px'
-  }
+  },
 };
 
 export default class MainHintWindow extends React.Component {
@@ -50,20 +50,22 @@ export default class MainHintWindow extends React.Component {
     const img_0_url = '../0000001_0.png';
     const img_1_url = '../0000001_1.png';
     return (
-      <ReflexContainer orientation="horizontal">
+      <div id="hint-window">
         {/* This is the dumbest way of doing refs I have ever seen,
           * but it is the only one that allows me to call child methods
           * for some reason. All other methods give me a TypeError:
           * 'blah' is not a function.
           */}
-        <HintCanvas onRef={(ref) => {this.canvas = ref}} />
-        <ReflexSplitter />
+        <HintCanvas
+            onRef={(ref) => {this.canvas = ref}}
+            id="hint-canvas"
+        />
         <HintToolbox
             cbZoomIn={this.canvasZoomIn}
             cbZoomOut={this.canvasZoomOut}
             cbChangeOpacity={this.canvasChangeOpacity}
         />
-      </ReflexContainer>
+      </div>
     );
   }
 }

@@ -1,16 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+const styles = {
+  canvas: {
+    height: '100%',
+    width: '100%'
+  }
+};
+
 export default class HintCanvas extends React.Component {
   constructor(props, ref) {
     super(props);
 
     // Set initial state.
     this.state = {
-        worldLeft: 0,
-        worldTop: 0,
-        worldRight: 100,
-        worldBottom: 100,
+        world: {
+            xleft: 0,
+            ytop: 0,
+            height: 100,
+            width: 100
+        },
         opacity: 0.4 // Hardcoded for now
     };
   }
@@ -34,17 +43,13 @@ export default class HintCanvas extends React.Component {
   }
 
   publicZoomIn() {
-    this.setState({
-        worldRight: this.state.worldRight * 1.1,
-        worldBottom: this.state.worldBottom * 1.1
-    });
+    this.refs.canvas.getContext('2d').scale(1.1, 1.1);
+    this.redrawCanvas();
   }
 
   publicZoomOut() {
-    this.setState({
-        worldRight: this.state.worldRight / 1.1,
-        worldBottom: this.state.worldBottom / 1.1
-    });
+    this.refs.canvas.getContext('2d').scale(1/1.1, 1/1.1);
+    this.redrawCanvas();
   }
 
   redrawCanvas() {
@@ -67,14 +72,14 @@ export default class HintCanvas extends React.Component {
       ctx.fillRect(25, 25, 100, 100);
 
       ctx.font = '20px Georgia';
-      ctx.fillText('temp ' + this.state.worldRight, 10, 10);
+      ctx.fillText('temp ' + this.state.world.width, 10, 10);
     }
   }
 
   render() {
     return (
-      <div>
-        <canvas ref="canvas" />
+      <div id="hint-canvas">
+        <canvas ref="canvas" style={styles.canvas} />
       </div>
     );
   }

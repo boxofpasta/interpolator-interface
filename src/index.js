@@ -34,14 +34,11 @@ class SplitLayout extends React.Component {
 
     // Set initial state.
     this.state = {
-        currentView: 'main'
+        currentView: 'hint'
     };
-
-    // Bind callbacks to this class.
-    this.cbChangeMainView = this.cbChangeMainView.bind(this);
   }
 
-  cbChangeMainView(view) {
+  cbChangeMainView = (view) => {
     this.setState({currentView: view});
   }
 
@@ -50,7 +47,7 @@ class SplitLayout extends React.Component {
     var mainView = this.state.currentView;
     switch (mainView) {
       case 'hint':
-        mainComponent = <MainHintWindow/>;
+        mainComponent = <MainHintWindow id="hint-window"/>;
         break;
       case 'main':
         mainComponent = (

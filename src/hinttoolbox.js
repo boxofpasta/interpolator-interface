@@ -39,21 +39,23 @@ export default class HintToolbox extends React.Component {
 
   render() {
     return (
-        <ReflexContainer orientation="vertical">
-          <Slider
-            style = {styles.slider}
-            value = { 0.4 /* hard coded for now */ }
-            onChange = {this.handleOpacitySlider}
-          />
-          <ReflexContainer orientation="horizontal">
-            <Button onClick = {this.handleZoomIn}>
-              Zoom In
-            </Button>
-            <Button onClick = {this.handleZoomOut}>
-              Zoom Out
-            </Button>
+        <div id="hint-toolbox">
+          <ReflexContainer orientation="vertical">
+            <Slider
+              style = {styles.slider}
+              value = { 0.4 /* hard coded for now */ }
+              onChange = {this.handleOpacitySlider}
+            />
+            <ReflexContainer orientation="horizontal">
+              <Button onClick = {this.handleZoomIn}>
+                Zoom In
+              </Button>
+              <Button onClick = {this.handleZoomOut}>
+                Zoom Out
+              </Button>
+            </ReflexContainer>
           </ReflexContainer>
-        </ReflexContainer>
+        </div>
     );
   }
 }
