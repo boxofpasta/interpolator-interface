@@ -8,18 +8,14 @@ const styles = {
   }
 };
 
+import EasyGL from './easygl.js';
+
 export default class HintCanvas extends React.Component {
   constructor(props, ref) {
     super(props);
 
     // Set initial state.
     this.state = {
-        world: {
-            xleft: 0,
-            ytop: 0,
-            height: 100,
-            width: 100
-        },
         opacity: 0.4 // Hardcoded for now
     };
   }
@@ -27,6 +23,7 @@ export default class HintCanvas extends React.Component {
   // On initial load.
   componentDidMount() {
     this.props.onRef(this);
+    this.easyGL = new EasyGL(this.refs.canvas.getContext('2d'));
     this.redrawCanvas();
   }
 
@@ -35,6 +32,7 @@ export default class HintCanvas extends React.Component {
   }
 
   componentDidUpdate() {
+    this.easyGL.reset(this.refs.canvas.getContext('2d'));
     this.redrawCanvas();
   }
 
@@ -52,6 +50,19 @@ export default class HintCanvas extends React.Component {
     this.redrawCanvas();
   }
 
+  handleClick = (event) => {
+      const canvas = this.refs.canvas;
+      const rect = canvas.getBoundingClientRect();
+      const ctx = canvas.getContext('2d');
+      this.easyGL.reset(ctx);
+      // For some reason the screen needs to be scaled to assume the canvas is 300x150
+      var x = (event.clientX - rect.left) * 300 / rect.width;
+      var y = (event.clientY - rect.top) * 150 / rect.height;
+      [x, y] = this.easyGL.screen_to_world(x, y);
+      console.log("x: " + x, "y: " + y);
+      this.easyGL.drawcircle(x, y, 10);
+  }
+
   redrawCanvas() {
     const canvas = this.refs.canvas;
     const width = canvas.getBoundingClientRect().width;
@@ -63,23 +74,20 @@ export default class HintCanvas extends React.Component {
       ctx.fillRect(0, 0, width, height);
       ctx.fillStyle = '#000000';
 
-      ctx.beginPath();
-      ctx.moveTo(10, 10);
-      ctx.lineTo(40, 40);
-      ctx.stroke();
-      ctx.closePath();
-
-      ctx.fillRect(25, 25, 100, 100);
-
-      ctx.font = '20px Georgia';
-      ctx.fillText('temp ' + this.state.world.width, 10, 10);
+      this.easyGL.drawline(10, 10, 100, 20);
+      this.easyGL.drawcircle(20, 20, 5);
+      this.easyGL.fillcircle(100, 100, 50);
     }
   }
 
   render() {
     return (
       <div id="hint-canvas">
-        <canvas ref="canvas" style={styles.canvas} />
+        <canvas
+            ref="canvas"
+            onClick={this.handleClick}
+            style={styles.canvas}
+        />
       </div>
     );
   }
