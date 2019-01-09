@@ -50,7 +50,7 @@ export default class HintToolbox extends React.Component {
               Zoom In
             </Button>
             <Button onClick = {this.handleZoomOut}>
-              Zoom Off
+              Zoom Out
             </Button>
           </ReflexContainer>
         </ReflexContainer>

@@ -35,15 +35,15 @@ export default class MainHintWindow extends React.Component {
   }
 
   canvasZoomIn = () => {
-    this.refs.canvas.publicZoomIn();
+    this.canvas.publicZoomIn();
   }
 
   canvasZoomOut = () => {
-    this.refs.canvas.publicZoomOut();
+    this.canvas.publicZoomOut();
   }
 
   canvasChangeOpacity = (value) => {
-    this.refs.canvas.publicChangeOpacity(value);
+    this.canvas.publicChangeOpacity(value);
   }
 
   render() {
@@ -51,7 +51,12 @@ export default class MainHintWindow extends React.Component {
     const img_1_url = '../0000001_1.png';
     return (
       <ReflexContainer orientation="horizontal">
-        <HintCanvas ref="canvas" />
+        {/* This is the dumbest way of doing refs I have ever seen,
+          * but it is the only one that allows me to call child methods
+          * for some reason. All other methods give me a TypeError:
+          * 'blah' is not a function.
+          */}
+        <HintCanvas onRef={(ref) => {this.canvas = ref}} />
         <ReflexSplitter />
         <HintToolbox
             cbZoomIn={this.canvasZoomIn}
