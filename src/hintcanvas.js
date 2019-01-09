@@ -84,6 +84,23 @@ export default class HintCanvas extends React.Component {
     }
   }
 
+  handleScroll = (event) => {
+    if (event.deltaY < 0) {
+        // Scrolling up
+        var [x, y] = this.page_to_canvas_coord(event.clientX, event.clientY);
+        [x, y] = this.easyGL.screen_to_world(x, y);
+        this.easyGL.zoom_in_to(x, y);
+        this.redrawCanvas();
+    }
+    else if (event.deltaY > 0) {
+        // Scrolling down
+        var [x, y] = this.page_to_canvas_coord(event.clientX, event.clientY);
+        [x, y] = this.easyGL.screen_to_world(x, y);
+        this.easyGL.zoom_out_at(x, y);
+        this.redrawCanvas();
+    }
+  }
+
   redrawCanvas() {
     const canvas = this.refs.canvas;
     const width = canvas.getBoundingClientRect().width;
@@ -109,6 +126,7 @@ export default class HintCanvas extends React.Component {
             onMouseDown={this.handleMouseDown}
             onMouseUp={this.handleMouseUp}
             onMouseMove={this.handleMouseMove}
+            onWheel={this.handleScroll}
             style={styles.canvas}
         />
       </div>

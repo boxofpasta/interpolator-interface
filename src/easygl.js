@@ -1,3 +1,5 @@
+const ZOOM_FACTOR = 1.1;
+
 export default class EasyGL {
   constructor(ctx) {
     this.ctx = ctx;
@@ -17,6 +19,18 @@ export default class EasyGL {
 
   translate(dx, dy) {
     this.ctx.translate(dx, dy);
+  }
+
+  zoom_in_to(x, y) {
+    console.log("Zooming to: ", x, y);
+    var mat = this.ctx.getTransform();
+    this.ctx.setTransform(mat.scale(ZOOM_FACTOR, ZOOM_FACTOR, 1, x, y));
+  }
+
+  zoom_out_at(x, y) {
+    console.log("Zooming out: ", x, y);
+    var mat = this.ctx.getTransform();
+    this.ctx.setTransform(mat.scale(1/ZOOM_FACTOR, 1/ZOOM_FACTOR, 1, x, y));
   }
 
   drawline(startx, starty, endx, endy) {
