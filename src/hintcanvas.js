@@ -25,9 +25,12 @@ export default class HintCanvas extends React.Component {
     this.props.onRef(undefined);
   }
 
+  componentDidUpdate() {
+    this.redrawCanvas();
+  }
+
   publicChangeOpacity(value) {
     this.setState({opacity: value});
-    this.redrawCanvas();
   }
 
   publicZoomIn() {
@@ -35,7 +38,6 @@ export default class HintCanvas extends React.Component {
         worldRight: this.state.worldRight * 1.1,
         worldBottom: this.state.worldBottom * 1.1
     });
-    this.redrawCanvas();
   }
 
   publicZoomOut() {
@@ -43,7 +45,6 @@ export default class HintCanvas extends React.Component {
         worldRight: this.state.worldRight / 1.1,
         worldBottom: this.state.worldBottom / 1.1
     });
-    this.redrawCanvas();
   }
 
   redrawCanvas() {
