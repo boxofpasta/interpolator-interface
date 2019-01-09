@@ -16,7 +16,7 @@ export default class HintCanvas extends React.Component {
 
     // Set initial state.
     this.state = {
-        opacity: 0.4 // Hardcoded for now
+        opacity: 0.4, // Hardcoded for now
     };
   }
 
@@ -50,17 +50,38 @@ export default class HintCanvas extends React.Component {
     this.redrawCanvas();
   }
 
-  handleClick = (event) => {
-      const canvas = this.refs.canvas;
-      const rect = canvas.getBoundingClientRect();
-      const ctx = canvas.getContext('2d');
-      this.easyGL.reset(ctx);
-      // For some reason the screen needs to be scaled to assume the canvas is 300x150
-      var x = (event.clientX - rect.left) * 300 / rect.width;
-      var y = (event.clientY - rect.top) * 150 / rect.height;
-      [x, y] = this.easyGL.screen_to_world(x, y);
-      console.log("x: " + x, "y: " + y);
-      this.easyGL.drawcircle(x, y, 10);
+  page_to_canvas_coord = (x, y) => {
+    const rect = this.refs.canvas.getBoundingClientRect();
+    // For some reason, canvas constantly assumes it is 300x150.
+    // Will need to fix this later to prevent the image from distorting.
+    return [(x - rect.left) * 300 / rect.width,
+            (y - rect.top) * 150 / rect.height];
+  }
+
+  handleMouseDown = (event) => {
+    const [x, y] = this.page_to_canvas_coord(event.clientX, event.clientY);
+    this.panning = {
+        prevx: x,
+        prevy: y
+    };
+  }
+
+  handleMouseUp = (event) => {
+    delete this.panning;
+  }
+
+  handleMouseMove = (event) => {
+    if (this.panning) {
+      const [x, y] = this.page_to_canvas_coord(event.clientX, event.clientY);
+      const dx = x - this.panning.prevx;
+      const dy = y - this.panning.prevy;
+      this.panning = {
+          prevx: x,
+          prevy: y
+      };
+      this.easyGL.translate(dx, dy);
+      this.redrawCanvas();
+    }
   }
 
   redrawCanvas() {
@@ -85,7 +106,9 @@ export default class HintCanvas extends React.Component {
       <div id="hint-canvas">
         <canvas
             ref="canvas"
-            onClick={this.handleClick}
+            onMouseDown={this.handleMouseDown}
+            onMouseUp={this.handleMouseUp}
+            onMouseMove={this.handleMouseMove}
             style={styles.canvas}
         />
       </div>

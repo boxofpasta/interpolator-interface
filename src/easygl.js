@@ -15,6 +15,10 @@ export default class EasyGL {
     return [x, y];
   }
 
+  translate(dx, dy) {
+    this.ctx.translate(dx, dy);
+  }
+
   drawline(startx, starty, endx, endy) {
     this.ctx.beginPath();
     this.ctx.moveTo(startx, starty);
