@@ -103,6 +103,7 @@ export default class HintCanvas extends React.Component {
     const img_0 = this.refs.img_0;
     const img_1 = this.refs.img_1;
 
+    this.easyGL.clearscreen();
     this.easyGL.drawimage(img_0, 0, 0);
     this.easyGL.drawimage(img_1, 0, 0, this.state.opacity);
   }
