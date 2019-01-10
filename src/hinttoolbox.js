@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import Button from '@material-ui/core/Button';
 import Slider from '@material-ui/lab/Slider';
+import Typography from '@material-ui/core/Typography';
 
 import {
   ReflexContainer,
@@ -13,8 +14,7 @@ import {
 const styles = {
   slider: {
     padding: '22px 10px',
-    width: '100px',
-    overflow: 'visible'
+    width: '100px'
   }
 };
 
@@ -24,11 +24,13 @@ export default class HintToolbox extends React.Component {
     
     // Set initial state.
     this.state = {
+        opacity: 0.4
     };
   }
 
   handleOpacitySlider = (event, value) => {
-    this.props.cbChangeOpacity(value);
+    this.props.cbChangeOpacity(value / 100);
+    this.setState({opacity: value / 100});
   }
 
   handleZoomIn = () => {
@@ -44,10 +46,11 @@ export default class HintToolbox extends React.Component {
         <div id="hint-toolbox">
           <ReflexContainer orientation="vertical">
             <div vertical layout>
-              <div><label>Opacity Slider</label></div>
+              <Typography id='opa_slider_label'>Opacity Slider</Typography>
               <Slider
                 style={styles.slider}
-                value={ 0.4 /* hard coded for now */ }
+                value={this.state.opacity * 100}
+                aria-labelledby='opa_slider_label'
                 onChange={this.handleOpacitySlider}
               />
             </div>
