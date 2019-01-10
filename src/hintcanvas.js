@@ -36,6 +36,17 @@ export default class HintCanvas extends React.Component {
     this.redrawCanvas();
   }
 
+  // On image load.
+  onLoadImg0 = () => {
+    this.img_0 = this.refs.img_0;
+    this.redrawCanvas();
+  }
+
+  onLoadImg1 = () => {
+    this.img_1 = this.refs.img_1;
+    this.redrawCanvas();
+  }
+
   publicChangeOpacity(value) {
     this.setState({opacity: value});
   }
@@ -100,12 +111,17 @@ export default class HintCanvas extends React.Component {
   }
 
   redrawCanvas = () => {
-    const img_0 = this.refs.img_0;
-    const img_1 = this.refs.img_1;
+    if (!this.easyGL) {
+      return;
+    }
 
     this.easyGL.clearscreen();
-    this.easyGL.drawimage(img_0, 0, 0);
-    this.easyGL.drawimage(img_1, 0, 0, this.state.opacity);
+    if (this.img_0 && this.img_1) {
+      this.easyGL.drawimage(this.img_0, 0, 0);
+      this.easyGL.drawimage(this.img_1, 0, 0, this.state.opacity);
+    } else {
+      this.easyGL.fillcircle(30, 30, 30);
+    }
   }
 
   render() {
@@ -121,8 +137,8 @@ export default class HintCanvas extends React.Component {
             onWheel={this.handleScroll}
             style={styles.canvas}
         />
-        <img ref="img_0" src={img_0_src} onLoad={this.redrawCanvas} style={{display: 'none'}}/>
-        <img ref="img_1" src={img_1_src} onLoad={this.redrawCanvas} style={{display: 'none'}}/>
+        <img ref='img_0' src={img_0_src} onLoad={this.onLoadImg0} style={{display: 'none'}}/>
+        <img ref='img_1' src={img_1_src} onLoad={this.onLoadImg1} style={{display: 'none'}}/>
       </div>
     );
   }
