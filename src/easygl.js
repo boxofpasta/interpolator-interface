@@ -9,6 +9,13 @@ export default class EasyGL {
     this.ctx = ctx;
   }
 
+  clearscreen() {
+    this.ctx.save();
+    this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+    this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+    this.ctx.restore();
+  }
+
   screen_to_world(screenx, screeny) {
     var mat = this.ctx.getTransform();
     mat.invertSelf();
@@ -68,8 +75,4 @@ export default class EasyGL {
     this.ctx.drawImage(image, x, y);
     this.ctx.globalAlpha = saveAlpha;
   }
-/*
-  drawimage(image, x, y) {
-    this.ctx.drawImage(image, x, y);
-  }*/
 }
