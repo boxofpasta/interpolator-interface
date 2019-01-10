@@ -12,7 +12,9 @@ import {
 
 const styles = {
   slider: {
-    padding: '0px 10px'
+    padding: '0px 10px',
+    width: '100px',
+    overflow: 'visible'
   }
 };
 
@@ -41,19 +43,23 @@ export default class HintToolbox extends React.Component {
     return (
         <div id="hint-toolbox">
           <ReflexContainer orientation="vertical">
-            <Slider
-              style = {styles.slider}
-              value = { 0.4 /* hard coded for now */ }
-              onChange = {this.handleOpacitySlider}
-            />
-            <ReflexContainer orientation="horizontal">
+            <div vertical layout>
+              <div><label>Opacity Slider</label></div>
+              <Slider
+                id="slider"
+                style = {styles.slider}
+                value = { 0.4 /* hard coded for now */ }
+                onChange = {this.handleOpacitySlider}
+              />
+            </div>
+            <div vertical layout>
               <Button onClick = {this.handleZoomIn}>
                 Zoom In
               </Button>
               <Button onClick = {this.handleZoomOut}>
                 Zoom Out
               </Button>
-            </ReflexContainer>
+            </div>
           </ReflexContainer>
         </div>
     );
