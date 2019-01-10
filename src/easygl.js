@@ -17,18 +17,25 @@ export default class EasyGL {
     return [x, y];
   }
 
-  translate(dx, dy) {
+  translate_world(dx, dy) {
     this.ctx.translate(dx, dy);
   }
 
-  zoom_in_to(x, y) {
-    console.log("Zooming to: ", x, y);
+  translate_screen(dx, dy) {
+    // I couldn't figure out an easy way to find the current scale.
+    const [x, y] = this.screen_to_world(dx, dy);
+    const [x0, y0] = this.screen_to_world(0, 0);
+    this.ctx.translate(x - x0, y - y0);
+  }
+
+  zoom_in_to_screen(x, y) {
+    [x, y] = this.screen_to_world(x, y);
     var mat = this.ctx.getTransform();
     this.ctx.setTransform(mat.scale(ZOOM_FACTOR, ZOOM_FACTOR, 1, x, y));
   }
 
-  zoom_out_at(x, y) {
-    console.log("Zooming out: ", x, y);
+  zoom_out_at_screen(x, y) {
+    [x, y] = this.screen_to_world(x, y);
     var mat = this.ctx.getTransform();
     this.ctx.setTransform(mat.scale(1/ZOOM_FACTOR, 1/ZOOM_FACTOR, 1, x, y));
   }

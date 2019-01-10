@@ -79,7 +79,7 @@ export default class HintCanvas extends React.Component {
           prevx: x,
           prevy: y
       };
-      this.easyGL.translate(dx, dy);
+      this.easyGL.translate_screen(dx, dy);
       this.redrawCanvas();
     }
   }
@@ -88,15 +88,13 @@ export default class HintCanvas extends React.Component {
     if (event.deltaY < 0) {
         // Scrolling up
         var [x, y] = this.page_to_canvas_coord(event.clientX, event.clientY);
-        [x, y] = this.easyGL.screen_to_world(x, y);
-        this.easyGL.zoom_in_to(x, y);
+        this.easyGL.zoom_in_to_screen(x, y);
         this.redrawCanvas();
     }
     else if (event.deltaY > 0) {
         // Scrolling down
         var [x, y] = this.page_to_canvas_coord(event.clientX, event.clientY);
-        [x, y] = this.easyGL.screen_to_world(x, y);
-        this.easyGL.zoom_out_at(x, y);
+        this.easyGL.zoom_out_at_screen(x, y);
         this.redrawCanvas();
     }
   }
