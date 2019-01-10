@@ -2,15 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // Button imports.
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 
 // Menu imports.
-import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
+import Popover from '@material-ui/core/Popover';
+import MenuList from '@material-ui/core/MenuList';
+import MenuItem from '@material-ui/core/MenuItem';
 
 // Paper imports.
-import Paper from 'material-ui/Paper';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 import './style.css';
 
@@ -83,63 +84,67 @@ export default class MenuBar extends React.Component {
     return (
       <div id="menu-bar">
         <Paper style={paperStyle} zDepth={2}>
-          <FlatButton label="File" onClick={this.handleFileClick} />
+          <Button onClick={this.handleFileClick}>
+            File
+          </Button>
           <Popover
             open={this.state.openFileMenu}
             anchorEl={this.state.anchorEl}
             anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
             targetOrigin={{horizontal: 'left', vertical: 'top'}}
-            onRequestClose={this.handleRequestClose}
-            animation={PopoverAnimationVertical}>
-            <Menu>
-              <MenuItem primaryText="Open" />
-              <MenuItem primaryText="Save" />
-              <MenuItem primaryText="Save as" />
-              <MenuItem primaryText="Export" />
-            </Menu>
+            onClose={this.handleRequestClose}>
+            <MenuList>
+              <MenuItem>Open</MenuItem>
+              <MenuItem>Save</MenuItem>
+              <MenuItem>Save as</MenuItem>
+              <MenuItem>Export</MenuItem>
+            </MenuList>
           </Popover>
-          <FlatButton label="Edit" onClick={this.handleEditClick} />
+          <Button onClick={this.handleEditClick}>
+            Edit
+          </Button>
           <Popover
             open={this.state.openEditMenu}
             anchorEl={this.state.anchorEl}
             anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
             targetOrigin={{horizontal: 'left', vertical: 'top'}}
-            onRequestClose={this.handleRequestClose}
-            animation={PopoverAnimationVertical}>
-            <Menu>
-              <MenuItem primaryText="Cut" />
-              <MenuItem primaryText="Copy" />
-              <MenuItem primaryText="Paste" />
-            </Menu>
+            onClose={this.handleRequestClose}>
+            <MenuList>
+              <MenuItem>Cut</MenuItem>
+              <MenuItem>Copy</MenuItem>
+              <MenuItem>Paste</MenuItem>
+            </MenuList>
           </Popover>
-          <FlatButton label="View" onClick={this.handleViewClick} />
+          <Button onClick={this.handleViewClick}>
+            View
+          </Button>
           <Popover
             open={this.state.openViewMenu}
             anchorEl={this.state.anchorEl}
             anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
             targetOrigin={{horizontal: 'left', vertical: 'top'}}
-            onRequestClose={this.handleRequestClose}
-            animation={PopoverAnimationVertical}>
-            <Menu>
-              <MenuItem primaryText="Zoom in" />
-              <MenuItem primaryText="Zoom out" />
-              <MenuItem primaryText="Commandline" />
-              <MenuItem onClick={this.handleChangeView.bind(this, 'main')} primaryText="Main Window" />
-              <MenuItem onClick={this.handleChangeView.bind(this, 'hint')} primaryText="Hint Window" />
-            </Menu>
+            onClose={this.handleRequestClose}>
+            <MenuList>
+              <MenuItem>Zoom in</MenuItem>
+              <MenuItem>Zoom out</MenuItem>
+              <MenuItem>Commandline</MenuItem>
+              <MenuItem onClick={this.handleChangeView.bind(this, 'main')}>Main Window</MenuItem>
+              <MenuItem onClick={this.handleChangeView.bind(this, 'hint')}>Hint Window</MenuItem>
+            </MenuList>
           </Popover>
-          <FlatButton label="Help" onClick={this.handleHelpClick} />
+          <Button onClick={this.handleHelpClick}>
+            Help
+          </Button>
           <Popover
             open={this.state.openHelpMenu}
             anchorEl={this.state.anchorEl}
             anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
             targetOrigin={{horizontal: 'left', vertical: 'top'}}
-            onRequestClose={this.handleRequestClose}
-            animation={PopoverAnimationVertical}>
-            <Menu>
-              <MenuItem primaryText="Version" />
-              <MenuItem primaryText="About" />
-            </Menu>
+            onClose={this.handleRequestClose}>
+            <MenuList>
+              <MenuItem>Version</MenuItem>
+              <MenuItem>About</MenuItem>
+            </MenuList>
           </Popover>
         </Paper>
       </div>

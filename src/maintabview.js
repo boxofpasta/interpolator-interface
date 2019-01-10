@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // Tab imports.
-import {Tabs, Tab} from 'material-ui/Tabs';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 // From https://github.com/oliviertassinari/react-swipeable-views.
 import SwipeableViews from 'react-swipeable-views';
 

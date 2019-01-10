@@ -13,18 +13,17 @@ import MenuBar from './menubar.js'
 import MainHintWindow from './mainhintwindow.js'
 
 // Theme imports.
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {deepOrange500} from 'material-ui/styles/colors';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import orange from '@material-ui/core/colors/orange';
 
 // CSS imports.
 import './style.css';
 import './reflexstyle.css';
 
 // Global theme.
-const muiTheme = getMuiTheme({
+const theme = createMuiTheme({
   palette: {
-    accent1Color: deepOrange500,
+    accent1Color: orange,
   }
 });
 
@@ -92,7 +91,7 @@ class SplitLayout extends React.Component {
   render () {
     return (
       <div id="main">
-        <MuiThemeProvider muiTheme={muiTheme}>
+        <MuiThemeProvider theme={theme}>
           <MenuBar cbChangeMainView={this.cbChangeMainView}/>
           <div id="layout">
             {this.getMainComponent()}

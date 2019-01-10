@@ -1,6 +1,6 @@
 :root {
   --menu-bar-height: 37px;
-  --hint-toolbox-height: 40px;
+  --hint-toolbox-height: 80px;
 }  
 
 html, body {
@@ -40,6 +40,7 @@ html, body {
   width: 100%;
   height: calc(100% - var(--hint-toolbox-height, 0px);
 }
+
 #hint-toolbox {
   width:100%;
   height: var(--hint-toolbox-height, 0px);

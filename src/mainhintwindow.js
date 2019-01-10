@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Slider from 'material-ui/Slider';
-import Button from 'material-ui/FlatButton';
+import Slider from '@material-ui/lab/Slider';
+import Button from '@material-ui/core/Button';
 
 import HintCanvas from './hintcanvas.js';
 import HintToolbox from './hinttoolbox.js';

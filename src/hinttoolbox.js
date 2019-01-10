@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Slider from 'material-ui/Slider';
-import Button from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
+import Slider from '@material-ui/lab/Slider';
 
 import {
   ReflexContainer,
@@ -12,7 +12,7 @@ import {
 
 const styles = {
   slider: {
-    padding: '0px 10px',
+    padding: '22px 10px',
     width: '100px',
     overflow: 'visible'
   }
@@ -46,10 +46,9 @@ export default class HintToolbox extends React.Component {
             <div vertical layout>
               <div><label>Opacity Slider</label></div>
               <Slider
-                id="slider"
-                style = {styles.slider}
-                value = { 0.4 /* hard coded for now */ }
-                onChange = {this.handleOpacitySlider}
+                style={styles.slider}
+                value={ 0.4 /* hard coded for now */ }
+                onChange={this.handleOpacitySlider}
               />
             </div>
             <div vertical layout>
