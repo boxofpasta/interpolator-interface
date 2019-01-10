@@ -24,15 +24,22 @@ export default class HintCanvas extends React.Component {
   componentDidMount() {
     this.props.onRef(this);
     this.easyGL = new EasyGL(this.refs.canvas.getContext('2d'));
-    this.redrawCanvas();
+    window.addEventListener("resize", this.handleResize);
+    this.handleResize();
   }
 
   componentWillUnmount() {
     this.props.onRef(undefined);
+    window.removeEventListener("resize", this.handleResize);
   }
 
   componentDidUpdate() {
     this.easyGL.reset(this.refs.canvas.getContext('2d'));
+    this.redrawCanvas();
+  }
+
+  handleResize = () => {
+    this.easyGL.resize_canvas(this.refs.canvas);
     this.redrawCanvas();
   }
 
@@ -65,8 +72,8 @@ export default class HintCanvas extends React.Component {
     const rect = this.refs.canvas.getBoundingClientRect();
     // For some reason, canvas constantly assumes it is 300x150.
     // Will need to fix this later to prevent the image from distorting.
-    return [(x - rect.left) * 300 / rect.width,
-            (y - rect.top) * 150 / rect.height];
+    return [(x - rect.left),// * 300 / rect.width,
+            (y - rect.top)];// * 150 / rect.height];
   }
 
   handleMouseDown = (event) => {
@@ -116,12 +123,14 @@ export default class HintCanvas extends React.Component {
     }
 
     this.easyGL.clearscreen();
-    if (this.img_0 && this.img_1) {
-      this.easyGL.drawimage(this.img_0, 0, 0);
-      this.easyGL.drawimage(this.img_1, 0, 0, this.state.opacity);
-    } else {
+
+    if (!this.img_0 || !this.img_1) {
       this.easyGL.fillcircle(30, 30, 30);
+      return;
     }
+
+    this.easyGL.drawimage(this.img_0, 0, 0);
+    this.easyGL.drawimage(this.img_1, 0, 0, this.state.opacity);
   }
 
   render() {
@@ -135,6 +144,7 @@ export default class HintCanvas extends React.Component {
             onMouseUp={this.handleMouseUp}
             onMouseMove={this.handleMouseMove}
             onWheel={this.handleScroll}
+            onResize={this.handleResize}
             style={styles.canvas}
         />
         <img ref='img_0' src={img_0_src} onLoad={this.onLoadImg0} style={{display: 'none'}}/>

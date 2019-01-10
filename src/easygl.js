@@ -16,6 +16,15 @@ export default class EasyGL {
     this.ctx.restore();
   }
 
+  resize_canvas(canvas) {
+    const rect = canvas.getBoundingClientRect();
+    const ctx = canvas.getContext('2d');
+    const mat = ctx.getTransform();
+    canvas.width = rect.width;
+    canvas.height = rect.height;
+    ctx.setTransform(mat);
+  }
+
   screen_to_world(screenx, screeny) {
     var mat = this.ctx.getTransform();
     mat.invertSelf();
