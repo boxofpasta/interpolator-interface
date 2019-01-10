@@ -61,4 +61,15 @@ export default class EasyGL {
     this.ctx.stroke();
     this.ctx.closePath();
   }
+
+  drawimage(image, x, y, alpha = 1) {
+    const saveAlpha = this.ctx.globalAlpha;
+    this.ctx.globalAlpha = alpha;
+    this.ctx.drawImage(image, x, y);
+    this.ctx.globalAlpha = saveAlpha;
+  }
+/*
+  drawimage(image, x, y) {
+    this.ctx.drawImage(image, x, y);
+  }*/
 }

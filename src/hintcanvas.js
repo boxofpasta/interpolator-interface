@@ -99,24 +99,17 @@ export default class HintCanvas extends React.Component {
     }
   }
 
-  redrawCanvas() {
-    const canvas = this.refs.canvas;
-    const width = canvas.getBoundingClientRect().width;
-    const height = canvas.getBoundingClientRect().height;
+  redrawCanvas = () => {
+    const img_0 = this.refs.img_0;
+    const img_1 = this.refs.img_1;
 
-    if (canvas.getContext) {
-      var ctx = canvas.getContext('2d');
-      ctx.fillStyle = '#FFFFFF';
-      ctx.fillRect(0, 0, width, height);
-      ctx.fillStyle = '#000000';
-
-      this.easyGL.drawline(10, 10, 100, 20);
-      this.easyGL.drawcircle(20, 20, 5);
-      this.easyGL.fillcircle(100, 100, 50);
-    }
+    this.easyGL.drawimage(img_0, 0, 0);
+    this.easyGL.drawimage(img_1, 0, 0, 0.4);
   }
 
   render() {
+    const img_0_src = '../0000001_0.png';
+    const img_1_src = '../0000001_1.png';
     return (
       <div id="hint-canvas">
         <canvas
@@ -127,6 +120,8 @@ export default class HintCanvas extends React.Component {
             onWheel={this.handleScroll}
             style={styles.canvas}
         />
+        <img ref="img_0" src={img_0_src} onLoad={this.redrawCanvas} style={{display: 'none'}}/>
+        <img ref="img_1" src={img_1_src} onLoad={this.redrawCanvas} style={{display: 'none'}}/>
       </div>
     );
   }
