@@ -16,7 +16,7 @@ export default class HintCanvas extends React.Component {
 
     // Set initial state.
     this.state = {
-        mode: 'click_hint',
+        mode: 'panning',
         opacity: 0.4, // Hardcoded for now
         hints: [
             {x: 10, y: 10, dx: 10, dy: 10},

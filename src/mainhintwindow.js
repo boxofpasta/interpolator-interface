@@ -46,6 +46,10 @@ export default class MainHintWindow extends React.Component {
     this.canvas.publicChangeOpacity(value);
   }
 
+  canvasChangeMouseMode = (value) => {
+    this.canvas.publicChangeMouseMode(value);
+  }
+
   render() {
     const img_0_url = '../0000001_0.png';
     const img_1_url = '../0000001_1.png';
@@ -64,6 +68,7 @@ export default class MainHintWindow extends React.Component {
             cbZoomIn={this.canvasZoomIn}
             cbZoomOut={this.canvasZoomOut}
             cbChangeOpacity={this.canvasChangeOpacity}
+            cbChangeMouseMode={this.canvasChangeMouseMode}
         />
       </div>
     );
