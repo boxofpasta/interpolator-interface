@@ -18,12 +18,7 @@ export default class HintCanvas extends React.Component {
     this.state = {
         mode: 'panning',
         opacity: 0.4, // Hardcoded for now
-        hints: [
-            {x: 10, y: 10, dx: 10, dy: 10},
-            {x: 10, y: 40, dx: 10, dy: -10},
-            {x: 40, y: 10, dx: -10, dy: 10},
-            {x: 40, y: 40, dx: -10, dy: -10},
-        ],
+        hints: [],
         drawing: undefined,
     };
   }
