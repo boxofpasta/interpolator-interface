@@ -17,6 +17,12 @@ export default class HintCanvas extends React.Component {
     // Set initial state.
     this.state = {
         opacity: 0.4, // Hardcoded for now
+        hints: [
+            {x: 10, y: 10, dx: 10, dy: 10},
+            {x: 10, y: 40, dx: 10, dy: -10},
+            {x: 40, y: 10, dx: -10, dy: 10},
+            {x: 40, y: 40, dx: -10, dy: -10},
+        ],
     };
   }
 
@@ -129,8 +135,15 @@ export default class HintCanvas extends React.Component {
       return;
     }
 
+    // Draw image overlays.
     this.easyGL.drawimage(this.img_0, 0, 0);
     this.easyGL.drawimage(this.img_1, 0, 0, this.state.opacity);
+
+    // Draw established hints.
+    var hint_len = this.state.hints.length;
+    for (var i = 0; i < hint_len; ++i) {
+      this.easyGL.drawhint(this.state.hints[i]);
+    }
   }
 
   render() {

@@ -84,4 +84,8 @@ export default class EasyGL {
     this.ctx.drawImage(image, x, y);
     this.ctx.globalAlpha = saveAlpha;
   }
+
+  drawhint(hint) {
+    this.drawline(hint.x, hint.y, hint.x + hint.dx, hint.y + hint.dy);
+  }
 }
