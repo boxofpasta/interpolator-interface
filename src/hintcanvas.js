@@ -16,6 +16,7 @@ export default class HintCanvas extends React.Component {
 
     // Set initial state.
     this.state = {
+        mode: 'click_hint',
         opacity: 0.4, // Hardcoded for now
         hints: [
             {x: 10, y: 10, dx: 10, dy: 10},
@@ -23,6 +24,7 @@ export default class HintCanvas extends React.Component {
             {x: 40, y: 10, dx: -10, dy: 10},
             {x: 40, y: 40, dx: -10, dy: -10},
         ],
+        drawing: undefined,
     };
   }
 
@@ -60,8 +62,40 @@ export default class HintCanvas extends React.Component {
     this.redrawCanvas();
   }
 
+  // Handle creation of new hints.
+  begin_or_end_new_hint(x, y) {
+    if (this.state.drawing != null) {
+      this.end_new_hint(x, y);
+    } else {
+      this.begin_new_hint(x, y);
+    }
+  }
+
+  begin_new_hint(x, y) {
+    [x, y] = this.easyGL.screen_to_world(x, y);
+    this.setState({drawing: {x: x, y: y}});
+  }
+
+  end_new_hint(x, y) {
+    [x, y] = this.easyGL.screen_to_world(x, y);
+    this.setState({
+      hints: this.state.hints.concat([{
+        x: this.state.drawing.x,
+        y: this.state.drawing.y,
+        dx: x - this.state.drawing.x,
+        dy: y - this.state.drawing.y
+      }]),
+      drawing: undefined
+    });
+  }
+
+  // Public callbacks.
   publicChangeOpacity(value) {
     this.setState({opacity: value});
+  }
+
+  publicChangeMouseMode(value) {
+    this.setState({mode: value});
   }
 
   publicZoomIn() {
@@ -74,6 +108,7 @@ export default class HintCanvas extends React.Component {
     this.redrawCanvas();
   }
 
+  // Event utilities.
   page_to_canvas_coord = (x, y) => {
     const rect = this.refs.canvas.getBoundingClientRect();
     // For some reason, canvas constantly assumes it is 300x150.
@@ -82,19 +117,45 @@ export default class HintCanvas extends React.Component {
             (y - rect.top)];// * 150 / rect.height];
   }
 
+  // Event handlers.
   handleMouseDown = (event) => {
-    const [x, y] = this.page_to_canvas_coord(event.clientX, event.clientY);
-    this.panning = {
-        prevx: x,
-        prevy: y
-    };
+    var [x, y] = this.page_to_canvas_coord(event.clientX, event.clientY);
+    switch(this.state.mode) {
+      case 'panning':
+        this.panning = {
+          prevx: x,
+          prevy: y
+        }
+        break;
+      case 'drag_hint':
+        this.begin_new_hint(x, y);
+        break;
+      case 'click_hint':
+      default:
+        break;
+    }
   }
 
   handleMouseUp = (event) => {
-    delete this.panning;
+    const [x, y] = this.page_to_canvas_coord(event.clientX, event.clientY);
+    if (this.panning) {
+      delete this.panning;
+    }
+    if (this.state.mode == 'drag_hint' && this.state.drawing != null) {
+      this.end_new_hint(x, y);
+    } else if (this.state.mode == 'click_hint') {
+      this.begin_or_end_new_hint(x, y);
+    }
   }
 
   handleMouseMove = (event) => {
+    if (this.state.drawing) {
+      const [x0, y0] = [this.state.drawing.x, this.state.drawing.y];
+      var [x1, y1] = this.page_to_canvas_coord(event.clientX, event.clientY);
+      [x1, y1] = this.easyGL.screen_to_world(x1, y1);
+      this.redrawCanvas();
+      this.easyGL.drawhint({x: x0, y: y0, dx: x1-x0, dy: y1-y0});
+    }
     if (this.panning) {
       const [x, y] = this.page_to_canvas_coord(event.clientX, event.clientY);
       const dx = x - this.panning.prevx;
@@ -123,6 +184,7 @@ export default class HintCanvas extends React.Component {
     }
   }
 
+  // Redraw canvas.
   redrawCanvas = () => {
     if (!this.easyGL) {
       return;
